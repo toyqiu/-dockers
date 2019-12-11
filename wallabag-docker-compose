@@ -1,0 +1,42 @@
+version: '3'
+services:
+  wallabag:
+    image: wallabag/wallabag  # 相当于docker pull wallabag/wallabag
+    container_name: wallabag  # 自定义容器名
+    depends_on:    # 建立依赖
+      - db
+      - redis
+    ports:
+      - 12488:80  # 12488为自定义端口，80不可变
+    environment:
+      - MYSQL_ROOT_PASSWORD=wallaroot
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+      - SYMFONY__ENV__DATABASE_HOST=db
+      - SYMFONY__ENV__DATABASE_PORT=3306
+      - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DATABASE_USER=wallabag
+      - SYMFONY__ENV__DATABASE_PASSWORD=wallapass
+      - SYMFONY__ENV__DATABASE_CHARSET=utf8mb4
+      - SYMFONY__ENV__MAILER_HOST=~
+      - SYMFONY__ENV__MAILER_USER=~
+      - SYMFONY__ENV__MAILER_PASSWORD=~
+      - SYMFONY__ENV__FROM_EMAIL=xxxxx@qq.com # 填写自己的邮件地址
+      - SYMFONY__ENV__DOMAIN_NAME=https://xxx.cc:223/ # 【重要】写上你做了反向代理之后的域名：端口；或者你做的是内网穿透的话，填相应的域名。
+    volumes: # 【重要】冒号之前的目录名是上文要求你新建的文件夹地址，该成你自己机器对应的目录
+      - /volume1/docker/wallabag/images:/var/www/wallabag/web/assets/images
+      - /volume1/docker/wallabag/data:/var/www/wallabag/data
+    restart: always
+    
+  db:
+    image: mariadb
+    container_name: wallabag_mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=wallaroot
+    volumes: # 【重要】冒号之前的目录名是上文要求你新建的文件夹地址，该成你自己机器对应的目录
+      - /volume1/docker/wallabag/mysql:/var/lib/mysql
+    restart: always
+    
+  redis:
+    image: redis:alpine
+    container_name: wallabag_redis
+    restart: always
