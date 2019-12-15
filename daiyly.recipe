@@ -1,0 +1,43 @@
+#!/usr/bin/env python2
+# vim:fileencoding=utf-8
+from __future__ import unicode_literals, division, absolute_import, print_function
+from calibre.web.feeds.news import BasicNewsRecipe
+
+class AdvancedUserRecipe1575136661(BasicNewsRecipe):
+    
+    title          = '\u6bcf\u65e5\u65b0\u95fb' # 题目，汉语的话需要中文转unicode
+    remove_javascript = True
+    oldest_article = 1
+    max_articles_per_feed = 50
+    auto_cleanup   = True
+    remove_empty_feeds = True
+    reverse_article_order = True
+    simultaneous_downloads = 5
+
+    extra_css = '''
+        h1{ text-align:center  }
+        h2{ text-align:center  }
+        h3{ text-align:center  }
+        p{ text-indent:2em  }
+                '''
+# 括号里面逗号前面是rss源的名字，后半部分是源地址
+    feeds          = [
+        ('ONE \xb7 \u4e00\u4e2a', 'http://192.168.5.198:1200/one'),
+        ('\u5357\u65b9\u5468\u672b-\u63a8\u8350', 'http://192.168.5.198:1200/infzm/1?mode=fulltext'),
+        ('\u817e\u8baf\u5927\u5bb6', 'http://192.168.5.198:1200/dajia'),
+        ('\u77e5\u4e4e - \u5229\u5f17\u83ab\u5c142018', 'http://192.168.5.198:1200/zhihu/people/posts/livemore2018'),
+        ('\u77e5\u4e4e\u4e13\u680f - \u6cd5\u5f8b\u4eba', 'http://192.168.5.198:1200/zhihu/zhuanlan/ilawer'),
+        ('\u77e5\u4e4e\u4e13\u680f - \u8fdc\u65b9\u7684\u72ee', 'http://192.168.5.198:1200/zhihu/zhuanlan/c_159083621'),
+        ('\u77e5\u4e4e\u65e5\u62a5', 'http://192.168.5.198:1200/zhihu/daily'),
+        ('\u7ebd\u7ea6\u65f6\u62a5\u4e2d\u6587\u7f51', 'http://192.168.5.198:1200/nytimes/en'),
+        ('ETF \u62ef\u6551\u4e16\u754c', 'http://192.168.5.198:1200/weibo/user/5687069307'),
+        ('FT \u4e2d\u6587', 'https://feedx.net/rss/ft.xml'),
+        ('\u6700\u65b0\u653f\u7b56\u0020\u002d\u0020\u4e2d\u56fd\u653f\u5e9c\u7f51', '  http://192.168.5.198:1200/gov/zhengce/zuixin'),
+		('ReutersJP Top Stories', 'http://feeds.reuters.com/reuters/JPTopNews?format=xml'),
+        ('ReutersJP World News', 'http://feeds.reuters.com/reuters/JPWorldNews?format=xml'),
+        ('ReutersJP Business News', 'http://feeds.reuters.com/reuters/JPBusinessNews?format=xml'),
+        ('ReutersJP Technology News', 'http://feeds.reuters.com/reuters/JPTechnologyNews?format=xml'),
+        ('ReutersJP Oddly Enough News', 'http://feeds.reuters.com/reuters/JPOddlyEnoughNews?format=xml')
+    ]
+	
+    def get_cover_url(self): return '/home/username/calibre/recipes/meirixinwen.png' # 作为封面的图片
