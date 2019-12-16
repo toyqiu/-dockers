@@ -40,4 +40,4 @@ class AdvancedUserRecipe1575136661(BasicNewsRecipe):
         ('ReutersJP Oddly Enough News', 'http://feeds.reuters.com/reuters/JPOddlyEnoughNews?format=xml')
     ]
 	
-    def get_cover_url(self): return '/home/username/calibre/recipes/meirixinwen.png' # 作为封面的图片
+    def get_cover_url(self): return '/books/recipes/meirixinwen.png' # 作为封面的图片
